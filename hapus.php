@@ -1,18 +1,26 @@
 <?php
 include('koneksi.php');
 
-$id = (int) $_GET['id'];
+// 1. Pastikan parameter 'id' ada di URL
+if (isset($_GET['id'])) {
+    
+    // 2. Casting ke integer untuk keamanan (SQL Injection Protection)
+    $id = (int) $_GET['id'];
 
-$query = mysqli_query($conn, "DELETE FROM tasks WHERE id = $id");
+    // 3. Eksekusi query
+    $query = mysqli_query($conn, "DELETE FROM tasks WHERE id = $id");
 
-if ($query) {
-    header('Location: index.php');
+    if ($query) {
+        // Berhasil, redirect kembali ke halaman utama
+        header('Location: index.php');
+        exit; // Selalu gunakan exit setelah header redirect
+    } else {
+        echo "Data gagal dihapus: " . mysqli_error($conn);
+    }
 } else {
-    echo'Data gagal dihapus';
+    // Jika mencoba akses langsung tanpa ID
+    header('Location: index.php');
+    exit;
 }
 
 ?>
-
-<a href="hapus.php?id=<?=$row['id']; ?>"
-onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus
-</a>

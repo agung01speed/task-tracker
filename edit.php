@@ -11,24 +11,38 @@ if (isset($_POST['update'])) {
     $kegiatan = $_POST['kegiatan'];
     $status = $_POST['status'];
 
-    mysqli_query($conn,"UPDATE tasks SET judul='$judul', kegiatan='$kegiatan', status='$status' WHERE id='$id'");
+    $sql = "UPDATE tasks SET judul='$judul', kegiatan='$kegiatan', status='$status' WHERE id='$id'";
+
+    if ($conn->query($sql) === TRUE) {
+       echo "tugas berhasil di edit";
+    } else {
+        echo "error saat mengupload editan" . $conn->error;
+    }
     header("Location: index.php");
 }
+$conn->close();
+
 ?>
 
 <!DOCTYPE html>
 <head>
     <title>edit tugas</title>
     <link href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <h1>Edit tugas</h1>
+     <p class="kalimat-index">Halaman ini memuat fitur edit judul, kegiatan, dan status. Jika semua sudah bisa pencet tombol "edit"</p>
     <form action="" method="POST">
 
+        <label>Judul kegiatan</label>
+        <br>
         <input type="text" name="judul"
         value="<?php echo $data['judul']; ?>">
 
         <br><br>
-        <div id="editor">
+        <label>Kegiatan</label>
+        <div id="editor" style="height: 200px;">
             <?php echo $data['kegiatan']; ?>
         </div>
         <input type="hidden" name="kegiatan" id="kegiatan">
@@ -48,11 +62,11 @@ if (isset($_POST['update'])) {
         </select>
 
         <br><br>
-
-        <button type="submit" name="update">
-            Update
-        </button>
+        <div class="posisi-tombol">
+            <button type="submit" name="update" class="efek-tombol">Edit</button>
+        </div>
     </form>
     <script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
     <script src="assets/js/editor.js"></script>
+    <script src="assets/js/draft.js"></script>
 </body>
