@@ -99,15 +99,19 @@ http://localhost/task-tracker
 task-tracker/
 │
 ├── assets/
-├── css/
-├── js/
-├── koneksi.php
-├── index.php
-├── tambah.php
+│   ├── css/
+│   │   └── style.css
+│   │
+│   └── js/
+│       ├── draft.js
+│       └── editor.js
+│
+├── db.sql
 ├── edit.php
 ├── hapus.php
-├── task_tracker.sql
-└── README.md
+├── index.php
+├── koneksi.php
+└── tambah.php
 ```
 
 ---
